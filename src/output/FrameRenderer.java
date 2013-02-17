@@ -1,8 +1,9 @@
 package output;
 
+import cue.Cue;
 import cue.CueFrame;
 
 public interface FrameRenderer {
-	public void setFrame(CueFrame f);
-	public CueFrame getFrame();
+	public void setCue(Cue c);
+	public CueFrame getFrame(int idx);
 }

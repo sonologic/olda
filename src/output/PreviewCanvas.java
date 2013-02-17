@@ -15,6 +15,8 @@ public class PreviewCanvas extends Canvas {
 	Preview p;
 	int w;
 	int h;
+	public int xPos = 0;
+	public int yPos = 0;
 
   public Dimension getMinimumSize() {
 	    return new Dimension(50, 100);  
@@ -30,6 +32,7 @@ public class PreviewCanvas extends Canvas {
 		  
 	public PreviewCanvas(Preview p) {
 		this.p = p;
+		this.setSize(200,200);
 		System.out.println("new previewcanvas");
 	}
 	
@@ -47,10 +50,13 @@ public class PreviewCanvas extends Canvas {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		this.h = getSize().height;
-		this.w = getSize().width;
+		this.h = 200; //getSize().height;
+		this.w = 200; //getSize().width;
 		
-		CueFrame f = p.getFrame();
+		if(p.getCue()==null)
+			return;
+		
+		CueFrame f = p.getCurrentFrame();
 		
 		Image buffer = createImage(w, h);
 		Graphics offscreen = buffer.getGraphics();
@@ -74,7 +80,8 @@ public class PreviewCanvas extends Canvas {
 		
 		for(int i=1; i<f.getNumPoints();i++) {
 			Point point = f.getPoint(i);
-			if(!lastColor.getBlank()) {
+			if(!f.getBlank(i-1)) {
+				
 				offscreen.setColor(lastColor.getColor());
 
 				//System.out.println(scaleX(lastPoint.getX()));
@@ -89,7 +96,7 @@ public class PreviewCanvas extends Canvas {
 			lastPoint = point;
 			lastColor = f.getColor(i);
 		}
-		g.drawImage(buffer,0,0,this);
+		g.drawImage(buffer,0,0,200,200,this);
 	}
 	
 	//g.drawImage(buffer,0,0,this);

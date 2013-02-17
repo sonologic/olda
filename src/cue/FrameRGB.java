@@ -22,6 +22,10 @@ public class FrameRGB implements CueFrame {
 		return colors.get(idx);
 	}
 
+	public boolean getBlank(int idx) {
+		return colors.get(idx).getBlank();
+	}
+	
 	@Override
 	public void setPoint(int idx, Point p) {
 		if(idx >= points.size()) {

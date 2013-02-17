@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Vector;
 
+import cue.Cue;
 import cue.CueFrame;
 
 public class File {
@@ -26,6 +27,16 @@ public class File {
 		while( (s=reader.readSection()) != null) {
 			sections.add(s);
 		}
+	}
+	
+	public Cue toCue() {
+		Cue cue = new Cue();
+		
+		for(int i=0;i<sections.size();i++) {
+			cue.addFrame(sections.get(i).toFrame());
+		}
+		
+		return cue;
 	}
 	
 	public String toString() {

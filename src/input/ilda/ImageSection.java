@@ -5,7 +5,8 @@ import java.util.Vector;
 
 import cue.ColorRGB;
 import cue.CueFrame;
-import cue.FrameRGB;
+import cue.FramePalette;
+import cue.Palette;
 import cue.Point;
 
 public class ImageSection extends Section {
@@ -67,14 +68,17 @@ public class ImageSection extends Section {
 	}
 	
 	public CueFrame toFrame() {
-		CueFrame f = new FrameRGB();
+		FramePalette f = new FramePalette(Palette.defaultPalette());
 		
 		for(int i=0; i<points.size(); i++) {
 			f.setPoint(i, points.get(i));
+			f.setColorNumber(i, status.get(i) & 0xff);
 			if( (status.get(i)&0x4000) == 0x4000)
-				f.setColor(i, new ColorRGB(128,128,128,true));
+				//f.setColor(i, new ColorRGB(128,128,128,true));
+				f.setBlank(i, true);
 			else
-				f.setColor(i, new ColorRGB(255,255,255,false));
+				//f.setColor(i, new ColorRGB(255,255,255,false));
+				f.setBlank(i, false);
 		}
 		
 		return f;
